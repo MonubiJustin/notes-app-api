@@ -106,7 +106,11 @@ exports.deleteNote = asyncMiddleware(async (req, res) => {
 exports.sharedNotes = asyncMiddleware(async (req, res) => {
     const noteId = req.params.id;
 
-    const notes = await Note.find({ _id: noteId, isShared: true }).select("-userId -__v");
+    const notes = await Note.findOne({ _id: noteId, isShared: true }).select("-userId -__v");
+    if (!notes) return res.status(404).json({
+        success: false,
+        message: "Shared note not found"
+    })
     res.status(200).json({
         success: true,
         data: notes

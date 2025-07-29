@@ -1,7 +1,7 @@
 require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
-const morgan = require('morgan');
+const morgan = require("morgan");
 const users = require("./routes/users");
 const notes = require("./routes/notes");
 const error = require("./middleware/error");
@@ -13,7 +13,7 @@ require("./config/database")(); // connection to the database
 
 app.use(express.json());
 app.use(cors());
-app.use(morgan('tiny'));
+app.use(morgan("tiny"));
 app.use("/api/users", users);
 app.use("/api/notes", notes);
 app.use(notFound);

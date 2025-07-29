@@ -1,26 +1,33 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
-
-const noteSchema = new mongoose.Schema({
+const noteSchema = new mongoose.Schema(
+  {
     title: {
-        type: String,
-        required: true,
-        maxlength: 100
+      type: String,
+      required: true,
+      maxlength: 100,
     },
     content: {
-        type: String,
-        required: true,
-        maxlength: 5000
+      type: String,
+      required: true,
+      maxlength: 5000,
     },
     userId: {
-        type: mongoose.Types.ObjectId,
-        ref: 'User',
-        required: true
+      type: mongoose.Types.ObjectId,
+      ref: "User",
+      required: true,
     },
     isShared: {
-        type: Boolean,
-        default: false
-    }
-}, { timestamps: true });
+      type: Boolean,
+      default: false,
+    },
+  },
+  { timestamps: true }
+);
 
-module.exports = mongoose.model('Note', noteSchema);
+// performance optimization by indexing userId and isShared
+noteSchema.index({ userId: 1 });
+noteSchema.index({ isShared: 1 });
+
+
+module.exports = mongoose.model("Note", noteSchema);
