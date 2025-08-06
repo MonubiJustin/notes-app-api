@@ -14,7 +14,7 @@ exports.registerUser = asyncMiddleware(async (req, res) => {
       message: "User already Exists",
     });
 
-  user = new User(_.pick(req.body, ["email", "password", "username"]));
+  user = new User(_.pick(req.body, ["email", "password", "username", "role"]));
   await user.save();
 
   const token = user.genAuthToken();
@@ -24,7 +24,7 @@ exports.registerUser = asyncMiddleware(async (req, res) => {
     .json({
       success: true,
       message: "User Registered Successfully",
-      data: _.pick(user, ["_id", "email", "username", "createdAt"]),
+      data: _.pick(user, ["_id", "email", "username", "createdAt", "role"]),
     });
 });
 

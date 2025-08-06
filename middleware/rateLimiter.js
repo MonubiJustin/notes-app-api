@@ -15,7 +15,7 @@ const loginLimiter = rateLimiter({
 // Limt user registration
 const registerLimiter = rateLimiter({
     windowMs: 60 * 60 * 1000, // 1 hour
-    max: 3,
+    max: 10,
     message: {
         success: false,
         message: 'Too many account registrations. Try again in an hour'

@@ -4,7 +4,8 @@ exports.regValidate = (body) => {
     const schema = Joi.object({
         email: Joi.string().email().required().trim(),
         password: Joi.string().required().min(8),
-        username: Joi.string().max(50).trim().lowercase()
+        username: Joi.string().max(50).trim().lowercase(),
+        role: Joi.string().valid('admin', 'user').trim()
     });
 
     return schema.validate(body);

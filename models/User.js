@@ -28,6 +28,12 @@ const userSchema = new mongoose.Schema(
         message: "Username must be unique.",
       },
     },
+    role: {
+      type: String,
+      enum: ["user", "admin"],
+      default: "user",
+      required: true,
+    },
   },
   { timestamps: true }
 );
@@ -49,7 +55,7 @@ userSchema.methods.isPasswordValid = async function (body_password) {
 // generating the Authentication token
 userSchema.methods.genAuthToken = function () {
   return jwt.sign(
-    { id: this._id.toString(), email: this.email },
+    { id: this._id.toString(), email: this.email, role: this.role },
     process.env.SECRET_KEY
   );
 };

@@ -4,6 +4,7 @@ const cors = require("cors");
 const morgan = require("morgan");
 const users = require("./routes/users");
 const notes = require("./routes/notes");
+const admin = require("./routes/admin")
 const error = require("./middleware/error");
 const notFound = require("./middleware/notFound");
 
@@ -16,6 +17,7 @@ app.use(cors());
 app.use(morgan("tiny"));
 app.use("/api/users", users);
 app.use("/api/notes", notes);
+app.use("/api/users", admin)
 app.use(notFound);
 app.use(error);
 
